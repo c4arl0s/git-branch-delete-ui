@@ -12,9 +12,11 @@ readonly ERROR_REPO="Current directory is not a git repository"
 
 warning_unselected_msg=
 
-git rev-parse --is-inside-work-tree >/dev/null 2>&1 || { error ${ERROR_REPO}; return 1; }
+git rev-parse --is-inside-work-tree >/dev/null 2>&1 \
+  || { error ${ERROR_REPO}; return 1; }
 
-current_branches=$(git for-each-ref --format='%(refname:short)' refs/heads/ | cut -d " " -f 1)
+current_branches=$(git for-each-ref --format='%(refname:short)' refs/heads/ \
+  | cut -d " " -f 1)
 
 #######################################
 # A function to print out error messages 
@@ -45,7 +47,8 @@ if [[ -n ${current_branches} ]]; then
         let "counter+=1"
         echo "\"${current_branch}\" \"${counter}\" off"
       done)
-  selected_branches=$(echo "${line}" | xargs dialog --stdout --checklist ${CURRENT_BRANCHES_MSG} 0 0 0)
+  selected_branches=$(echo "${line}" \
+    | xargs dialog --stdout --checklist ${CURRENT_BRANCHES_MSG} 0 0 0)
   [[ -n "${selected_branches}" ]] \
     && echo ${selected_branches} | xargs git branch -D \
     && echo "🟢 ${selected_branches} ${SUCCESS_MSG}" \

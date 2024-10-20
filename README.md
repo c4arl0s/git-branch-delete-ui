@@ -2,6 +2,8 @@
 
 `git-delete-branches-ui.sh` scripts helps you to delele interactively branches from the current git repository.
 
+<img width="400" alt="Screenshot 2024-10-20 at 3 11 12 p m" src="https://github.com/user-attachments/assets/ab33d8bc-e216-44c5-9429-ff92e2646204">
+
 # Code
 
 ```bash
@@ -63,3 +65,5 @@ fi
 
 [[ -n "${warning_unselected_msg}" ]] && warning ${warning_unselected_msg}
 ```
+
+<img width="400" alt="Screenshot 2024-10-20 at 3 11 12 p m" src="https://github.com/user-attachments/assets/ab33d8bc-e216-44c5-9429-ff92e2646204">
