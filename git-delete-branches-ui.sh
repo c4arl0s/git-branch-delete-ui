@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 #
-# git-delete-branches-ui script uses an user interface to add delete branches
+# git-delete-branches-ui script uses an user interface to delete branches
 
 readonly CURRENT_BRANCHES_MSG='Current Branches to remove, select them:'
-readonly MODIFIED_FILES_MSG='Modified files to add, select them:'
 
 readonly DIDNT_SELECT_BRANCH_MSG='You did not select any branch'
 readonly NO_BRANCHES_ERROR_MSG='No branches'
@@ -54,3 +53,5 @@ if [[ -n ${current_branches} ]]; then
 else
   error ${NO_BRANCHES_ERROR_MSG}
 fi
+
+[[ -n "${warning_unselected_msg}" ]] && warning ${warning_unselected_msg}
