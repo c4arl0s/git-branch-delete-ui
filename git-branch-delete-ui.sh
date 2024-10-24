@@ -40,16 +40,32 @@ warning() {
   echo "[🟡 $(date +'%Y-%m-%dT%H:%M:%S%z')]: $*" >&2
 }
 
+clean_branches() {
+  current_branches=$1
+  current_branch=$(git rev-parse --abbrev-ref HEAD)
+  current_branches=$(echo ${current_branches} | sed '/master/d' | sed '/main/d')
+  echo ${current_branches}
+}
+
+are_you_sure_msg() {
+  selected_branches=$1
+  dialog --title "Are you sure you want to delete these branches?: ${selected_branches}" \
+    --yesno "continue?" 0 0
+}
+
 if [[ -n ${current_branches} ]]; then
+  clean_branches ${current_branches}
+  echo ${current_branches}
   let counter=0
   line=$(echo ${current_branches} \
-    | while read current_branch; do 
+    | while read branch; do 
         let "counter+=1"
-        echo "\"${current_branch}\" \"${counter}\" off"
+        echo "\"${branch}\" \"${counter}\" off"
       done)
   selected_branches=$(echo "${line}" \
     | xargs dialog --stdout --checklist ${CURRENT_BRANCHES_MSG} 0 0 0)
   [[ -n "${selected_branches}" ]] \
+    && areYouSureMsg ${selected_branches} \
     && echo ${selected_branches} | xargs git branch -D \
     && echo "🟢 ${selected_branches} ${SUCCESS_MSG}" \
     || warning_unselected_msg=${DIDNT_SELECT_BRANCH_MSG}
