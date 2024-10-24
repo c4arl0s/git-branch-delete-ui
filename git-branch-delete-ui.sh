@@ -42,8 +42,8 @@ warning() {
 
 clean_branches() {
   current_branches=$1
-  current_branch=$(git rev-parse --abbrev-ref HEAD)
-  current_branches=$(echo ${current_branches} | sed '/master/d' | sed '/main/d')
+  current_branch=$(git rev-parse --abbrev-ref HEAD | sed 's;/;\\/;g')
+  current_branches=$(echo ${current_branches} | sed '/master/d' | sed '/main/d' | sed "/${current_branch}/d")
   echo ${current_branches}
 }
 
