@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# git-delete-branches-ui script uses an user interface to delete branches
+# git-branch-delete-ui script uses an user interface to delete branches
 
 readonly CURRENT_BRANCHES_MSG='Current Branches to remove, select them:'
 
