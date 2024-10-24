@@ -57,8 +57,9 @@ are_you_sure_msg() {
     --yesno "continue?" 0 0
 }
 
-if [[ -n ${current_branches} ]]; then
-  clean_branches ${current_branches}
+clean_branches ${current_branches}
+
+if [[ ${current_branches} ]]; then
   echo ${current_branches}
   let counter=0
   line=$(echo ${current_branches} \
