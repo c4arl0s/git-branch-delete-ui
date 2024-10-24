@@ -37,14 +37,18 @@ error() {
 #   None
 #######################################
 warning() {
-  echo "[🟡 $(date +'%Y-%m-%dT%H:%M:%S%z')]: $*" >&2
+  date_format='%Y-%m-%dT%H:%M:%S%'
+  echo "[🟡 $(date +${date_format})]: $*" >&2
 }
 
 clean_branches() {
   current_branches=$1
-  current_branch=$(git rev-parse --abbrev-ref HEAD | sed 's;/;\\/;g')
-  current_branches=$(echo ${current_branches} | sed '/master/d' | sed '/main/d' | sed "/${current_branch}/d")
-  echo ${current_branches}
+  current_branch=$(git rev-parse --abbrev-ref HEAD \
+    | sed 's;/;\\/;g')
+  current_branches=$(echo ${current_branches} \
+    | sed '/master/d' \
+    | sed '/main/d' \
+    | sed "/${current_branch}/d")
 }
 
 are_you_sure_msg() {
