@@ -85,7 +85,7 @@ if [[ ${current_branches} ]]; then
   selected_branches=$(echo "${line}" \
     | xargs dialog --stdout --checklist ${CURRENT_BRANCHES_MSG} 0 0 0)
   [[ -n "${selected_branches}" ]] \
-    && areYouSureMsg ${selected_branches} \
+    && are_you_sure_msg ${selected_branches} \
     && echo ${selected_branches} | xargs git branch -D \
     && echo "🟢 ${selected_branches} ${SUCCESS_MSG}" \
     || warning_unselected_msg=${DIDNT_SELECT_BRANCH_MSG}
